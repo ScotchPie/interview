@@ -1,0 +1,38 @@
+<body>
+  <button id="btnT">节流</button>
+  <button id="btnD">防抖</button>
+  <script>
+    let btnT = document.getElementById("btnT");
+    let btnD = document.getElementById("btnD");
+
+    function send() {
+      console.log("提交完成");
+    }
+
+    function throttle(fn, delay) {
+      let isCalled = false;
+      return function (...args) {
+        if (!isCalled) {
+          fn(...args);
+          isCalled = true;
+          setTimeout(() => {
+            isCalled = false;
+          }, delay);
+        }
+      };
+    }
+
+    function debounce(fn, delay) {
+      let timer;
+      return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          fn(...args);
+        }, delay);
+      };
+    }
+
+    btnT.addEventListener("click", throttle(send, 1000));
+    btnD.addEventListener("click", debounce(send, 1000));
+  </script>
+</body>

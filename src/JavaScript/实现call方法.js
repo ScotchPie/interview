@@ -1,11 +1,10 @@
 Function.prototype.myCall = function (context, ...args) {
-  let fn = this;
+  // context为null或undefined时被忽略
   context = context ?? window;
-  // 本质是借用context对象，隐式调用，Symbol为了与原属性冲突
-  const fnSymbol = new Symbol("fn");
-  context[fnSymbol] = fn;
-  const res = context[fnSymbol](...args);
-  delete context[fnSymbol];
+  const fn = Symbol("fn");
+  context[fn] = this;
+  const res = context[fn](...args);
+  delete context[symbol];
   return res;
 };
 

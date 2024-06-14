@@ -1,17 +1,11 @@
 Array.prototype.myReduce = function (fn, initValue) {
-  // 未提供初始值
-  if (initValue === undefined) {
-    let result = this[0];
-    for (let i = 1; i < this.length; i++) {
-      result = fn(result, this[i], i, this);
-    }
-    return result;
-  }
+  const hasInitialValue = initValue !== undefined;
+  let result = hasInitialValue ? initValue : this[0];
 
-  let result = initValue;
-  for (let i = 0; i < this.length; i++) {
+  for (let i = hasInitialValue ? 0 : 1; i < this.length; i++) {
     result = fn(result, this[i], i, this);
   }
+
   return result;
 };
 

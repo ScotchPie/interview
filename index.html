@@ -1,0 +1,23 @@
+<body>
+  <button id="btn">提交</button>
+  <script>
+    let btn = document.getElementById("btn"); //获取事件名
+    function send() {
+      //设定提交成功样式
+      console.log("提交完成");
+    }
+    btn.addEventListener("click", throttle(send, 1000)); //确定监听器
+    function throttle(fn, delay) {
+      let flag = false;
+      return function (...args) {
+        if (!flag) {
+          fn.call(this, ...args);
+          flag = true;
+          setTimeout(() => {
+            flag = false;
+          }, delay);
+        }
+      };
+    }
+  </script>
+</body>
